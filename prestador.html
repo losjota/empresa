@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Prestador - Portal de Serviços</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Área do Prestador de Serviço</h1>
+            <div class="user-info">
+                <span id="userName"></span>
+                <button onclick="logout()" class="btn btn-secondary btn-sm">Sair</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="dashboard-section">
+                <h2>Meu Currículo</h2>
+                <div id="curriculoStatus" class="status-box">
+                    <p id="statusMessage">Você ainda não cadastrou seu currículo.</p>
+                </div>
+
+                <div class="curriculo-example">
+                    <h3>Exemplo de Currículo Profissional</h3>
+                    <div class="example-image">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=1000&fit=crop" alt="Exemplo de Currículo" id="exampleResume" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%221000%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22800%22 height=%221000%22/%3E%3Ctext x=%22400%22 y=%22500%22 font-family=%22Arial%22 font-size=%2224%22 fill=%22%23667eea%22 text-anchor=%22middle%22%3EExemplo de Currículo Profissional%3C/text%3E%3C/svg%3E'">
+                        <p class="example-note">Use este exemplo como referência para criar seu currículo profissional bem elaborado</p>
+                    </div>
+                </div>
+
+                <button onclick="showCurriculoForm()" class="btn btn-primary btn-large">
+                    <span id="curriculoBtnText">Adicionar Currículo</span>
+                </button>
+            </div>
+
+            <!-- Formulário de Currículo -->
+            <div id="curriculoForm" class="form-section" style="display: none;">
+                <h2>Cadastrar Currículo Profissional</h2>
+                <p class="form-intro">Preencha todos os campos para criar um perfil completo e profissional</p>
+                
+                <form id="curriculoFormData" onsubmit="saveCurriculo(event)">
+                    <!-- Seção 1: Dados Pessoais -->
+                    <div class="form-section-title">
+                        <h3>1. Dados Pessoais</h3>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group form-col">
+                            <label for="nomeCompleto">Nome Completo: <span class="required">*</span></label>
+                            <input type="text" id="nomeCompleto" required>
+                        </div>
+                        <div class="form-group form-col">
+                            <label for="cpf">CPF:</label>
+                            <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group form-col">
+                            <label for="dataNascimento">Data de Nascimento:</label>
+                            <input type="date" id="dataNascimento">
+                        </div>
+                        <div class="form-group form-col">
+                            <label for="estadoCivil">Estado Civil:</label>
+                            <select id="estadoCivil">
+                                <option value="">Selecione</option>
+                                <option value="Solteiro(a)">Solteiro(a)</option>
+                                <option value="Casado(a)">Casado(a)</option>
+                                <option value="Divorciado(a)">Divorciado(a)</option>
+                                <option value="Viúvo(a)">Viúvo(a)</option>
+                                <option value="União Estável">União Estável</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group form-col">
+                            <label for="telefone">Telefone: <span class="required">*</span></label>
+                            <input type="tel" id="telefone" placeholder="(00) 00000-0000" required>
+                        </div>
+                        <div class="form-group form-col">
+                            <label for="telefone2">Telefone Alternativo:</label>
+                            <input type="tel" id="telefone2" placeholder="(00) 00000-0000">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Profissional: <span class="required">*</span></label>
+                        <input type="email" id="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endereco">Endereço Completo: <span class="required">*</span></label>
+                        <input type="text" id="endereco" placeholder="Rua, número, bairro, cidade, estado, CEP" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group form-col">
+                            <label for="cidade">Cidade: <span class="required">*</span></label>
+                            <input type="text" id="cidade" required>
+                        </div>
+                        <div class="form-group form-col">
+                            <label for="estado">Estado: <span class="required">*</span></label>
+                            <select id="estado" required>
+                                <option value="">Selecione</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-col">
+                            <label for="cep">CEP:</label>
+                            <input type="text" id="cep" placeholder="00000-000" maxlength="9">
+                        </div>
+                    </div>
+
+                    <!-- Seção 2: Informações Profissionais -->
+                    <div class="form-section-title">
+                        <h3>2. Informações Profissionais</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="objetivoProfissional">Objetivo Profissional: <span class="required">*</span></label>
+                        <textarea id="objetivoProfissional" rows="3" placeholder="Descreva seus objetivos profissionais e o que você busca em uma oportunidade" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profissao">Profissão Principal: <span class="required">*</span></label>
+                        <select id="profissao" required>
+                            <option value="">Selecione uma profissão</option>
+                            <option value="Desenvolvedor">Desenvolvedor</option>
+                            <option value="Designer">Designer</option>
+                            <option value="Contador">Contador</option>
+                            <option value="Advogado">Advogado</option>
+                            <option value="Engenheiro">Engenheiro</option>
+                            <option value="Arquiteto">Arquiteto</option>
+                            <option value="Médico">Médico</option>
+                            <option value="Enfermeiro">Enfermeiro</option>
+                            <option value="Professor">Professor</option>
+                            <option value="Consultor">Consultor</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="RH">Recursos Humanos</option>
+                            <option value="Vendas">Vendas</option>
+                            <option value="Administração">Administração</option>
+                            <option value="Financeiro">Financeiro</option>
+                            <option value="Logística">Logística</option>
+                            <option value="TI">Tecnologia da Informação</option>
+                            <option value="Comunicação">Comunicação</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="areaAtuacao">Área de Atuação: <span class="required">*</span></label>
+                        <select id="areaAtuacao" required>
+                            <option value="">Selecione a área principal</option>
+                            <option value="Tecnologia">Tecnologia</option>
+                            <option value="Saúde">Saúde</option>
+                            <option value="Educação">Educação</option>
+                            <option value="Direito">Direito</option>
+                            <option value="Engenharia">Engenharia</option>
+                            <option value="Arquitetura">Arquitetura</option>
+                            <option value="Administração">Administração</option>
+                            <option value="Financeiro">Financeiro</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Vendas">Vendas</option>
+                            <option value="Recursos Humanos">Recursos Humanos</option>
+                            <option value="Comunicação">Comunicação</option>
+                            <option value="Consultoria">Consultoria</option>
+                            <option value="Logística">Logística</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="especialidades">Especialidades: <span class="required">*</span></label>
+                        <div class="checkbox-group" id="especialidadesContainer">
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Desenvolvimento Web"> Desenvolvimento Web</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Desenvolvimento Mobile"> Desenvolvimento Mobile</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Design Gráfico"> Design Gráfico</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="UX/UI Design"> UX/UI Design</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Gestão de Projetos"> Gestão de Projetos</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Análise de Dados"> Análise de Dados</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Marketing Digital"> Marketing Digital</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Vendas B2B"> Vendas B2B</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Vendas B2C"> Vendas B2C</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Recrutamento"> Recrutamento</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Contabilidade"> Contabilidade</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Auditoria"> Auditoria</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Direito Trabalhista"> Direito Trabalhista</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Direito Civil"> Direito Civil</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Engenharia Civil"> Engenharia Civil</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Engenharia de Software"> Engenharia de Software</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Arquitetura Residencial"> Arquitetura Residencial</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Arquitetura Comercial"> Arquitetura Comercial</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Clínica Geral"> Clínica Geral</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Especialidades Médicas"> Especialidades Médicas</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Enfermagem"> Enfermagem</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Ensino Superior"> Ensino Superior</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Ensino Fundamental/Médio"> Ensino Fundamental/Médio</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Consultoria Empresarial"> Consultoria Empresarial</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Consultoria Financeira"> Consultoria Financeira</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Logística e Supply Chain"> Logística e Supply Chain</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Comunicação Social"> Comunicação Social</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Jornalismo"> Jornalismo</label>
+                            <label class="checkbox-label"><input type="checkbox" name="especialidades" value="Outros"> Outros</label>
+                        </div>
+                        <input type="text" id="especialidadesOutros" placeholder="Especifique outras especialidades" style="margin-top: 10px; display: none;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="anosExperiencia">Anos de Experiência na Área: <span class="required">*</span></label>
+                        <select id="anosExperiencia" required>
+                            <option value="">Selecione</option>
+                            <option value="Menos de 1 ano">Menos de 1 ano</option>
+                            <option value="1 a 2 anos">1 a 2 anos</option>
+                            <option value="3 a 5 anos">3 a 5 anos</option>
+                            <option value="6 a 10 anos">6 a 10 anos</option>
+                            <option value="11 a 15 anos">11 a 15 anos</option>
+                            <option value="Mais de 15 anos">Mais de 15 anos</option>
+                        </select>
+                    </div>
+
+                    <!-- Seção 3: Experiência Profissional Detalhada -->
+                    <div class="form-section-title">
+                        <h3>3. Experiência Profissional</h3>
+                    </div>
+
+                    <div id="experienciasContainer">
+                        <div class="experiencia-item">
+                            <div class="form-row">
+                                <div class="form-group form-col">
+                                    <label>Empresa:</label>
+                                    <input type="text" class="exp-empresa" placeholder="Nome da empresa">
+                                </div>
+                                <div class="form-group form-col">
+                                    <label>Cargo:</label>
+                                    <input type="text" class="exp-cargo" placeholder="Cargo ocupado">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group form-col">
+                                    <label>Data de Início:</label>
+                                    <input type="month" class="exp-inicio">
+                                </div>
+                                <div class="form-group form-col">
+                                    <label>Data de Término:</label>
+                                    <input type="month" class="exp-termino">
+                                    <label class="checkbox-label" style="margin-top: 5px;">
+                                        <input type="checkbox" class="exp-atual"> Trabalho atual
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Descrição das Atividades:</label>
+                                <textarea class="exp-descricao" rows="3" placeholder="Descreva suas principais atividades e responsabilidades neste cargo"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="adicionarExperiencia()" class="btn btn-secondary btn-sm" style="margin-bottom: 20px;">+ Adicionar Outra Experiência</button>
+
+                    <!-- Seção 4: Formação Acadêmica -->
+                    <div class="form-section-title">
+                        <h3>4. Formação Acadêmica</h3>
+                    </div>
+
+                    <div id="formacoesContainer">
+                        <div class="formacao-item">
+                            <div class="form-row">
+                                <div class="form-group form-col">
+                                    <label>Curso/Nível:</label>
+                                    <select class="form-nivel">
+                                        <option value="">Selecione</option>
+                                        <option value="Ensino Médio">Ensino Médio</option>
+                                        <option value="Técnico">Técnico</option>
+                                        <option value="Graduação">Graduação</option>
+                                        <option value="Pós-graduação">Pós-graduação</option>
+                                        <option value="Mestrado">Mestrado</option>
+                                        <option value="Doutorado">Doutorado</option>
+                                        <option value="MBA">MBA</option>
+                                    </select>
+                                </div>
+                                <div class="form-group form-col">
+                                    <label>Nome do Curso:</label>
+                                    <input type="text" class="form-curso" placeholder="Ex: Administração, Engenharia, etc.">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group form-col">
+                                    <label>Instituição:</label>
+                                    <input type="text" class="form-instituicao" placeholder="Nome da instituição">
+                                </div>
+                                <div class="form-group form-col">
+                                    <label>Status:</label>
+                                    <select class="form-status">
+                                        <option value="">Selecione</option>
+                                        <option value="Concluído">Concluído</option>
+                                        <option value="Em andamento">Em andamento</option>
+                                        <option value="Trancado">Trancado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group form-col">
+                                    <label>Ano de Conclusão/Previsão:</label>
+                                    <input type="text" class="form-ano" placeholder="Ex: 2020 ou 2025">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="adicionarFormacao()" class="btn btn-secondary btn-sm" style="margin-bottom: 20px;">+ Adicionar Outra Formação</button>
+
+                    <!-- Seção 5: Habilidades e Competências -->
+                    <div class="form-section-title">
+                        <h3>5. Habilidades e Competências</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="habilidadesTecnicas">Habilidades Técnicas: <span class="required">*</span></label>
+                        <textarea id="habilidadesTecnicas" rows="4" placeholder="Liste suas habilidades técnicas específicas (ex: JavaScript, Python, Photoshop, Excel Avançado, etc.)" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="softSkills">Competências Comportamentais (Soft Skills):</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Liderança"> Liderança</label>
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Trabalho em Equipe"> Trabalho em Equipe</label>
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Comunicação"> Comunicação</label>
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Proatividade"> Proatividade</label>
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Organização"> Organização</label>
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Resolução de Problemas"> Resolução de Problemas</label>
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Criatividade"> Criatividade</label>
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Adaptabilidade"> Adaptabilidade</label>
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Gestão de Tempo"> Gestão de Tempo</label>
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Negociação"> Negociação</label>
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Pensamento Crítico"> Pensamento Crítico</label>
+                            <label class="checkbox-label"><input type="checkbox" name="softSkills" value="Ética Profissional"> Ética Profissional</label>
+                        </div>
+                    </div>
+
+                    <!-- Seção 6: Idiomas -->
+                    <div class="form-section-title">
+                        <h3>6. Idiomas</h3>
+                    </div>
+
+                    <div id="idiomasContainer">
+                        <div class="idioma-item">
+                            <div class="form-row">
+                                <div class="form-group form-col">
+                                    <label>Idioma:</label>
+                                    <select class="idioma-nome">
+                                        <option value="">Selecione</option>
+                                        <option value="Português">Português</option>
+                                        <option value="Inglês">Inglês</option>
+                                        <option value="Espanhol">Espanhol</option>
+                                        <option value="Francês">Francês</option>
+                                        <option value="Alemão">Alemão</option>
+                                        <option value="Italiano">Italiano</option>
+                                        <option value="Mandarim">Mandarim</option>
+                                        <option value="Japonês">Japonês</option>
+                                        <option value="Outros">Outros</option>
+                                    </select>
+                                </div>
+                                <div class="form-group form-col">
+                                    <label>Nível:</label>
+                                    <select class="idioma-nivel">
+                                        <option value="">Selecione</option>
+                                        <option value="Básico">Básico</option>
+                                        <option value="Intermediário">Intermediário</option>
+                                        <option value="Avançado">Avançado</option>
+                                        <option value="Fluente">Fluente</option>
+                                        <option value="Nativo">Nativo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="adicionarIdioma()" class="btn btn-secondary btn-sm" style="margin-bottom: 20px;">+ Adicionar Outro Idioma</button>
+
+                    <!-- Seção 7: Certificações -->
+                    <div class="form-section-title">
+                        <h3>7. Certificações e Cursos Complementares</h3>
+                    </div>
+
+                    <div id="certificacoesContainer">
+                        <div class="certificacao-item">
+                            <div class="form-row">
+                                <div class="form-group form-col">
+                                    <label>Nome da Certificação/Curso:</label>
+                                    <input type="text" class="cert-nome" placeholder="Ex: Scrum Master, Google Analytics, etc.">
+                                </div>
+                                <div class="form-group form-col">
+                                    <label>Instituição:</label>
+                                    <input type="text" class="cert-instituicao" placeholder="Instituição emissora">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group form-col">
+                                    <label>Ano de Conclusão:</label>
+                                    <input type="text" class="cert-ano" placeholder="Ex: 2023">
+                                </div>
+                                <div class="form-group form-col">
+                                    <label>Código da Certificação (se houver):</label>
+                                    <input type="text" class="cert-codigo" placeholder="Código ou número da certificação">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="adicionarCertificacao()" class="btn btn-secondary btn-sm" style="margin-bottom: 20px;">+ Adicionar Outra Certificação</button>
+
+                    <!-- Seção 8: Disponibilidade e Preferências -->
+                    <div class="form-section-title">
+                        <h3>8. Disponibilidade e Preferências de Trabalho</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regimeTrabalho">Regime de Trabalho Preferido: <span class="required">*</span></label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="regimeTrabalho" value="CLT"> CLT</label>
+                            <label class="checkbox-label"><input type="checkbox" name="regimeTrabalho" value="PJ"> PJ</label>
+                            <label class="checkbox-label"><input type="checkbox" name="regimeTrabalho" value="Freelancer"> Freelancer</label>
+                            <label class="checkbox-label"><input type="checkbox" name="regimeTrabalho" value="Estágio"> Estágio</label>
+                            <label class="checkbox-label"><input type="checkbox" name="regimeTrabalho" value="Temporário"> Temporário</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalidadeTrabalho">Modalidade de Trabalho: <span class="required">*</span></label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="modalidadeTrabalho" value="Presencial"> Presencial</label>
+                            <label class="checkbox-label"><input type="checkbox" name="modalidadeTrabalho" value="Remoto"> Remoto</label>
+                            <label class="checkbox-label"><input type="checkbox" name="modalidadeTrabalho" value="Híbrido"> Híbrido</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="disponibilidade">Disponibilidade:</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="disponibilidade" value="Imediata"> Imediata</label>
+                            <label class="checkbox-label"><input type="checkbox" name="disponibilidade" value="15 dias"> 15 dias</label>
+                            <label class="checkbox-label"><input type="checkbox" name="disponibilidade" value="30 dias"> 30 dias</label>
+                            <label class="checkbox-label"><input type="checkbox" name="disponibilidade" value="60 dias"> 60 dias</label>
+                            <label class="checkbox-label"><input type="checkbox" name="disponibilidade" value="A combinar"> A combinar</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jornadaPreferida">Jornada de Trabalho Preferida:</label>
+                        <select id="jornadaPreferida">
+                            <option value="">Selecione</option>
+                            <option value="Integral (8h)">Integral (8h)</option>
+                            <option value="Meio Período (4h)">Meio Período (4h)</option>
+                            <option value="6 horas">6 horas</option>
+                            <option value="Flexível">Flexível</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regiaoAtuacao">Região de Atuação Preferida:</label>
+                        <textarea id="regiaoAtuacao" rows="2" placeholder="Ex: São Paulo - SP, Região Metropolitana, Todo Brasil, etc."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="faixaSalarial">Faixa Salarial Pretendida:</label>
+                        <select id="faixaSalarial">
+                            <option value="">Prefiro não informar</option>
+                            <option value="Até R$ 1.500">Até R$ 1.500</option>
+                            <option value="R$ 1.500 a R$ 3.000">R$ 1.500 a R$ 3.000</option>
+                            <option value="R$ 3.000 a R$ 5.000">R$ 3.000 a R$ 5.000</option>
+                            <option value="R$ 5.000 a R$ 8.000">R$ 5.000 a R$ 8.000</option>
+                            <option value="R$ 8.000 a R$ 12.000">R$ 8.000 a R$ 12.000</option>
+                            <option value="R$ 12.000 a R$ 20.000">R$ 12.000 a R$ 20.000</option>
+                            <option value="Acima de R$ 20.000">Acima de R$ 20.000</option>
+                            <option value="A combinar">A combinar</option>
+                        </select>
+                    </div>
+
+                    <!-- Seção 9: Links e Portfólio -->
+                    <div class="form-section-title">
+                        <h3>9. Links e Portfólio</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn:</label>
+                        <input type="url" id="linkedin" placeholder="https://linkedin.com/in/seu-perfil">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="github">GitHub (se aplicável):</label>
+                        <input type="url" id="github" placeholder="https://github.com/seu-usuario">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="portfolio">Portfólio/Site Pessoal:</label>
+                        <input type="url" id="portfolio" placeholder="https://seusite.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="outrosLinks">Outros Links Relevantes:</label>
+                        <textarea id="outrosLinks" rows="2" placeholder="Behance, Dribbble, Medium, etc. (um por linha)"></textarea>
+                    </div>
+
+                    <!-- Seção 10: Referências Profissionais -->
+                    <div class="form-section-title">
+                        <h3>10. Referências Profissionais (Opcional)</h3>
+                    </div>
+
+                    <div id="referenciasContainer">
+                        <div class="referencia-item">
+                            <div class="form-row">
+                                <div class="form-group form-col">
+                                    <label>Nome:</label>
+                                    <input type="text" class="ref-nome" placeholder="Nome completo">
+                                </div>
+                                <div class="form-group form-col">
+                                    <label>Cargo:</label>
+                                    <input type="text" class="ref-cargo" placeholder="Cargo da pessoa">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group form-col">
+                                    <label>Empresa:</label>
+                                    <input type="text" class="ref-empresa" placeholder="Empresa onde trabalha/trabalhou">
+                                </div>
+                                <div class="form-group form-col">
+                                    <label>Telefone/Email:</label>
+                                    <input type="text" class="ref-contato" placeholder="Telefone ou email">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="adicionarReferencia()" class="btn btn-secondary btn-sm" style="margin-bottom: 20px;">+ Adicionar Outra Referência</button>
+
+                    <!-- Seção 11: Informações Adicionais -->
+                    <div class="form-section-title">
+                        <h3>11. Informações Adicionais</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="informacoesAdicionais">Informações Adicionais Relevantes:</label>
+                        <textarea id="informacoesAdicionais" rows="4" placeholder="Prêmios, publicações, projetos relevantes, voluntariado, ou qualquer outra informação que considere importante"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">Salvar Currículo Completo</button>
+                        <button type="button" onclick="cancelCurriculoForm()" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Visualização do Currículo -->
+            <div id="curriculoView" class="curriculo-view" style="display: none;">
+                <h2>Meu Currículo</h2>
+                <div id="curriculoContent" class="curriculo-display"></div>
+                <button onclick="editCurriculo()" class="btn btn-primary">Editar Currículo</button>
+            </div>
+
+            <!-- Tela de Pagamento PIX -->
+            <div id="paymentScreen" class="payment-screen" style="display: none;">
+                <div class="payment-content">
+                    <h2>Pagamento via PIX</h2>
+                    <p class="payment-description">Para publicar seu currículo e torná-lo visível para empresas, realize o pagamento de <strong>R$ 14,99</strong></p>
+                    
+                    <div class="pix-info">
+                        <div class="pix-qr-code">
+                            <div class="qr-placeholder">
+                                <div class="qr-code-icon">📱</div>
+                                <p>QR Code PIX</p>
+                            </div>
+                        </div>
+                        <div class="pix-details">
+                            <div class="pix-amount">
+                                <span class="amount-label">Valor:</span>
+                                <span class="amount-value">R$ 14,99</span>
+                            </div>
+                            <div class="pix-code-section">
+                                <label>Código PIX (Copiar e Colar):</label>
+                                <div class="pix-code-container">
+                                    <input type="text" id="pixCode" readonly value="00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3-a456-426614174000520400005303986540514.995802BR5925PORTAL SERVICOS PROF6009SAO PAULO62070503***6304ABCD" class="pix-code-input">
+                                    <button onclick="copyPixCode()" class="btn-copy">Copiar</button>
+                                </div>
+                            </div>
+                            <div class="payment-instructions">
+                                <h4>Como pagar:</h4>
+                                <ol>
+                                    <li>Abra o app do seu banco</li>
+                                    <li>Escaneie o QR Code ou cole o código PIX</li>
+                                    <li>Confirme o pagamento de R$ 14,99</li>
+                                    <li>Clique em "Já paguei" abaixo</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-actions">
+                        <button onclick="confirmPayment('prestador')" class="btn btn-primary btn-large">Já paguei - Confirmar</button>
+                        <button onclick="cancelPayment()" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                    <p class="payment-note">Após a confirmação, seu currículo ficará visível para todas as empresas cadastradas.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="prestador.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área da Empresa - Portal de Serviços</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Área da Empresa</h1>
+            <div class="user-info">
+                <span id="userName"></span>
+                <button onclick="logout()" class="btn btn-secondary btn-sm">Sair</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div id="dashboard-section" class="dashboard-section">
+                <h2>Buscar Prestadores de Serviço</h2>
+                
+                <div class="filter-section">
+                    <div class="form-row">
+                        <div class="form-group form-col">
+                            <label for="filterProfissao">Filtrar por Profissão:</label>
+                            <select id="filterProfissao" onchange="filterCurriculos()">
+                                <option value="">Todas as Profissões</option>
+                                <option value="Desenvolvedor">Desenvolvedor</option>
+                                <option value="Designer">Designer</option>
+                                <option value="Contador">Contador</option>
+                                <option value="Advogado">Advogado</option>
+                                <option value="Engenheiro">Engenheiro</option>
+                                <option value="Arquiteto">Arquiteto</option>
+                                <option value="Médico">Médico</option>
+                                <option value="Enfermeiro">Enfermeiro</option>
+                                <option value="Professor">Professor</option>
+                                <option value="Consultor">Consultor</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="RH">Recursos Humanos</option>
+                                <option value="Vendas">Vendas</option>
+                                <option value="Administração">Administração</option>
+                                <option value="Financeiro">Financeiro</option>
+                                <option value="Logística">Logística</option>
+                                <option value="TI">Tecnologia da Informação</option>
+                                <option value="Comunicação">Comunicação</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-col">
+                            <label for="filterArea">Filtrar por Área de Atuação:</label>
+                            <select id="filterArea" onchange="filterCurriculos()">
+                                <option value="">Todas as Áreas</option>
+                                <option value="Tecnologia">Tecnologia</option>
+                                <option value="Saúde">Saúde</option>
+                                <option value="Educação">Educação</option>
+                                <option value="Direito">Direito</option>
+                                <option value="Engenharia">Engenharia</option>
+                                <option value="Arquitetura">Arquitetura</option>
+                                <option value="Administração">Administração</option>
+                                <option value="Financeiro">Financeiro</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Vendas">Vendas</option>
+                                <option value="Recursos Humanos">Recursos Humanos</option>
+                                <option value="Comunicação">Comunicação</option>
+                                <option value="Consultoria">Consultoria</option>
+                                <option value="Logística">Logística</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="curriculosList" class="curriculos-grid">
+                    <p class="empty-message">Nenhum currículo disponível no momento.</p>
+                </div>
+            </div>
+
+            <!-- Tela de Pagamento para Empresa -->
+            <div id="empresaPaymentScreen" class="payment-screen" style="display: none;">
+                <div class="payment-content">
+                    <h2>Assinatura para Acessar Currículos</h2>
+                    <p class="payment-description">Para visualizar e contratar profissionais qualificados, realize o pagamento da assinatura mensal.</p>
+                    
+                    <div class="pix-info">
+                        <div class="pix-qr-code">
+                            <div class="qr-placeholder">
+                                <div class="qr-code-icon">📱</div>
+                                <p>QR Code PIX</p>
+                            </div>
+                        </div>
+                        <div class="pix-details">
+                            <div class="pix-amount">
+                                <span class="amount-label">Valor da Assinatura:</span>
+                                <span class="amount-value">R$ 14,99</span>
+                                <span class="amount-period">/mês</span>
+                            </div>
+                            <div class="pix-code-section">
+                                <label>Código PIX (Copiar e Colar):</label>
+                                <div class="pix-code-container">
+                                    <input type="text" id="empresaPixCode" readonly value="00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3-a456-426614174000520400005303986540514.995802BR5925PORTAL SERVICOS PROF6009SAO PAULO62070503***6304ABCD" class="pix-code-input">
+                                    <button onclick="copyEmpresaPixCode()" class="btn-copy">Copiar</button>
+                                </div>
+                            </div>
+                            <div class="payment-instructions">
+                                <h4>Como pagar:</h4>
+                                <ol>
+                                    <li>Abra o app do seu banco</li>
+                                    <li>Escaneie o QR Code ou cole o código PIX</li>
+                                    <li>Confirme o pagamento de R$ 14,99</li>
+                                    <li>Clique em "Já paguei" abaixo</li>
+                                </ol>
+                            </div>
+                            <div class="benefits-box">
+                                <h4>Com a assinatura você terá acesso a:</h4>
+                                <ul>
+                                    <li>✅ Visualizar todos os currículos cadastrados</li>
+                                    <li>✅ Filtrar por profissão e área de atuação</li>
+                                    <li>✅ Ver informações completas dos profissionais</li>
+                                    <li>✅ Contato direto com os prestadores</li>
+                                    <li>✅ Busca avançada de talentos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-actions">
+                        <button onclick="confirmEmpresaPayment()" class="btn btn-primary btn-large">Já paguei - Confirmar</button>
+                        <button onclick="cancelEmpresaPayment()" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                    <p class="payment-note">Após a confirmação, você terá acesso completo a todos os currículos disponíveis.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="empresa.js"></script>
+</body>
+</html>
